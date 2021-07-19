@@ -5,7 +5,8 @@ class Greetings(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def hey(ctx, *, name=None):
+    @commands.command()
+    async def hey(self, ctx, *, name=None):
         if name:
             if name.lower() == "esteban julio ricardo montoya de la rosa ramírez":
                 await ctx.send("Hey thief")

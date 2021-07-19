@@ -2,7 +2,11 @@ import discord
 from discord.ext import commands
 
 class Sort(commands.Cog):
-    async def sort(ctx, *args):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.command()
+    async def sort(self, ctx, *args):
         argsList = []
         for item in args:
             argsList.append(item)
