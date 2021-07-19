@@ -1,6 +1,9 @@
-import config
+import os
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Bot(commands.Bot):
     async def on_ready(self):
@@ -12,4 +15,4 @@ class Bot(commands.Bot):
 
 bot = Bot(command_prefix="!")
 
-bot.run(config.TOKEN)
+bot.run(os.environ["TOKEN"])
