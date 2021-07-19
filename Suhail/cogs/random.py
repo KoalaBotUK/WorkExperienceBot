@@ -1,3 +1,4 @@
+import aiohttp
 import discord
 import random
 from discord.ext import commands
@@ -20,6 +21,13 @@ class Random(commands.Cog):
         if count == 0: return await ctx.send("Well... you rolled nothing so... Nothing")
         
         await ctx.send(" ".join(str(random.randint(1, 6)) for x in range(count)))
+
+    @commands.command()
+    async def cat(self, ctx):
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://api.thecatapi.com/v1/images/search") as resp:
+                data = await resp.json()
+                return await ctx.send(data[0]["url"])
 
 def setup(bot):
     bot.add_cog(Random(bot))
