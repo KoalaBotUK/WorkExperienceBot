@@ -9,6 +9,9 @@ bot = commands.Bot(command_prefix='!')
 @bot.event
 async def on_ready():
     print(f"Bot user {bot.user} is ready.")
+    bot.load_extension("cogs.greetings")
+    bot.load_extension("cogs.sort")
+
 
 @bot.event
 async def on_message(msg):
@@ -20,31 +23,6 @@ async def on_message(msg):
 
     if msg.content.lower() == "no one calls esteban julio ricardo montoya de la rosa ramírez a thief!":
         await msg.channel.send("NO ONE'S GOT THE TIME")
-
-    await bot.process_commands(msg)
-
-@bot.command(name="hey")
-async def hey(ctx, *, name=None):
-    if name:
-        if name.lower() == "esteban julio ricardo montoya de la rosa ramírez":
-            await ctx.send("Hey thief")
-        else:
-            await ctx.send("Hey " + name + " :)")
-    else:
-        await ctx.send("Hey " + ctx.message.author.name + " :)")
-
-@bot.command()
-async def sort(ctx, *args):
-    argsList = []
-    for item in args:
-        argsList.append(item)
-    argsList.sort()
-
-    output = "{} arguments: ".format(len(args))
-    for item in argsList:
-        output += item + " "
-
-    await ctx.send(output)
 
 
 load_dotenv()
