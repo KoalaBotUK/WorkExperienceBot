@@ -1,9 +1,11 @@
 import os
 import discord
+from discord.ext import commands
 
 from dotenv import load_dotenv
 
 client = discord.Client()
+bot = commands.Bot(command_prefix='!')
 
 @client.event
 async def on_ready():
@@ -15,6 +17,14 @@ async def on_message(msg):
         return                           # Don’t respond to itself
     if msg.content == "Ping":            # Check that the message content matches
         await msg.channel.send("Pong!")  # If it does, reply
+
+@bot.command(name="hey")
+async def hey(ctx, *, args):
+    if args:
+        await ctx.send("Hey " + args)
+    else:
+        await ctx.send("Hey " + ctx.message.author.name)
+
 
 load_dotenv()
 BOT_TOKEN=os.environ['TOKEN']
