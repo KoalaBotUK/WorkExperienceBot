@@ -35,8 +35,16 @@ async def hey(ctx, *, name=None):
 
 @bot.command()
 async def sort(ctx, *args):
-    newArgs = list(args).sort()
-    await ctx.send('{} arguments: {}'.format(len(args), ', '.join(newArgs)))
+    argsList = []
+    for item in args:
+        argsList.append(item)
+    argsList.sort()
+
+    output = "{} arguments: ".format(len(args))
+    for item in argsList:
+        output += item + " "
+
+    await ctx.send(output)
 
 
 load_dotenv()
