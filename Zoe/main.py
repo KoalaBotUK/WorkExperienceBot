@@ -1,4 +1,8 @@
+import os
 import discord
+
+from dotenv import load_dotenv
+
 client = discord.Client()
 
 @client.event
@@ -12,4 +16,5 @@ async def on_message(msg):
     if msg.content == "Ping":            # Check that the message content matches
         await msg.channel.send("Pong!")  # If it does, reply
 
-bot.run()
+load_dotenv()
+client.run(os.environ['TOKEN'])
