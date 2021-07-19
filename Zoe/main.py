@@ -18,8 +18,8 @@ async def on_message(msg):
     if msg.author == bot.user:
         return
     
-    if msg.content == "Ping":
-        await msg.channel.send("Pong!")
+    # if msg.content == "Ping":
+    #     await msg.channel.send("Pong!")
 
     if msg.content == "easter":
         await msg.channel.send("egg")
