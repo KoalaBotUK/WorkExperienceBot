@@ -17,4 +17,5 @@ async def on_message(msg):
         await msg.channel.send("Pong!")  # If it does, reply
 
 load_dotenv()
-client.run(os.environ['TOKEN'])
+BOT_TOKEN=os.environ['TOKEN']
+client.run(BOT_TOKEN)
