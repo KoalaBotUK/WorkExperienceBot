@@ -21,6 +21,9 @@ async def on_message(msg):
     if msg.content == "Ping":
         await msg.channel.send("Pong!")
 
+    if msg.content == "easter":
+        await msg.channel.send("egg")
+
     if msg.content.lower() == "no one calls esteban julio ricardo montoya de la rosa ramírez a thief!":
         await msg.channel.send("NO ONE'S GOT THE TIME")
 
