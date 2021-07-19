@@ -14,10 +14,25 @@ async def on_ready():
     print("Bot user" +client.user.name+" is ready.")
 
 @client.command()
-async def hi(cxt, args):
+async def hi(ctx, args = ""):
+        if ctx.author == client.user:
+            return 
+        if (args == ""):
+            print("no args")
+            await ctx.channel.send("Hello "+ ctx.author.name +"!")
+
+        else:
+            await ctx.channel.send("Hello "+ args +"!")
+
+@client.command()
+async def sort(cxt,*args):
         if cxt.author == client.user:
             return 
-        await cxt.channel.send("Hello "+ args +"!")
+        else:
+            print(list(args))
+            argList = list(args)
+            sortedArgs = argList.sort()
+            await cxt.send('{} arguments: {}'.format(len(argList), ', '.join(argList)))
 
 #@client.event
 #async def on_message(msg):
