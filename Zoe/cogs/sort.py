@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 class Sort(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -20,3 +21,4 @@ class Sort(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Sort(bot))
+    print("cog loaded")
