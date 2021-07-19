@@ -15,11 +15,11 @@ async def on_ready():
 async def on_message(msg):
     if msg.author == client.user:
         return
-
-    await bot.process_commands(msg)
     
     if msg.content == "Ping":
         await msg.channel.send("Pong!")
+
+    await bot.process_commands(msg)
 
 @bot.command(name="hey")
 async def hey(ctx, *, args):
