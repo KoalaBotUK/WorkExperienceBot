@@ -23,15 +23,22 @@ async def Ping(ctx):
         await ctx.channel.send("Pong!")  # If it does, reply
 
 @client.command()
-async def hi(ctx, arg, name = None):
+async def hi(ctx, arg):
     if ctx.author == client.user:
         return
-    arg = arg or ctx.author.display_name
     await ctx.channel.send("hello " + arg + "!")
 
 @hi.error
 async def hi_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("hello " + ctx.author.display_name + "!")
+
+@client.command()
+async def sort(ctx, *args):
+    if ctx.author == client.user:
+        return
+    await ctx.send(str(len(args)) + " argument(s)")
+    await ctx.send("Sorted arguments: " + ", ".join(sorted(args)))
+
 
 client.run(token)
