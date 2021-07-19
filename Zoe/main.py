@@ -18,20 +18,25 @@ async def on_message(msg):
     if msg.content == "Ping":
         await msg.channel.send("Pong!")
 
-    if msg.content.lower == "no one calls esteban julio ricardo montoya de la rosa ramírez a thief!":
+    if msg.content.lower() == "no one calls esteban julio ricardo montoya de la rosa ramírez a thief!":
         await msg.channel.send("NO ONE'S GOT THE TIME")
 
     await bot.process_commands(msg)
 
 @bot.command(name="hey")
-async def hey(ctx, *, name = None):
+async def hey(ctx, *, name=None):
     if name:
         if name.lower() == "esteban julio ricardo montoya de la rosa ramírez":
-            await ctx.send("Hey theif")
+            await ctx.send("Hey thief")
         else:
             await ctx.send("Hey " + name + " :)")
     else:
         await ctx.send("Hey " + ctx.message.author.name + " :)")
+
+@bot.command()
+async def sort(ctx, *args):
+    newArgs = args.sort()
+    await ctx.send('{} arguments: {}'.format(len(args), ', '.join(newArgs)))
 
 
 load_dotenv()
