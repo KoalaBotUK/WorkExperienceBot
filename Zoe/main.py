@@ -35,7 +35,7 @@ async def hey(ctx, *, name=None):
 
 @bot.command()
 async def sort(ctx, *args):
-    newArgs = args.sort()
+    newArgs = list(args).sort()
     await ctx.send('{} arguments: {}'.format(len(args), ', '.join(newArgs)))
 
 
