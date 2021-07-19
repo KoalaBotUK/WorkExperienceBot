@@ -21,11 +21,11 @@ async def on_message(msg):
     await bot.process_commands(msg)
 
 @bot.command(name="hey")
-async def hey(ctx, *, args):
-    if args:
-        await ctx.send("Hey " + args)
+async def hey(ctx, name = None):
+    if name:
+        await ctx.send("Hey " + name + " :)")
     else:
-        await ctx.send("Hey " + ctx.message.author.name)
+        await ctx.send("Hey " + ctx.message.author.name + " :)")
 
 
 load_dotenv()
