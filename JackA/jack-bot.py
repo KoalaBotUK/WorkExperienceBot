@@ -12,4 +12,4 @@ async def on_message(msg):
     if msg.content == "Ping":            # Check that the message content matches
         await msg.channel.send("Pong!")  # If it does, reply
 
-client.run("ODY2NjQxODMwOTE2Nzg0MTM4.YPVhGQ.0xRxmgt0WJJutUquVkxMNTvaRXM") #insert token here
+client.run() #insert token here
