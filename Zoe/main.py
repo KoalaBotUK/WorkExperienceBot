@@ -14,9 +14,12 @@ async def on_ready():
 @client.event
 async def on_message(msg):
     if msg.author == client.user:
-        return                           # Don’t respond to itself
-    if msg.content == "Ping":            # Check that the message content matches
-        await msg.channel.send("Pong!")  # If it does, reply
+        return
+    
+    await bot.process_commands(msg)
+
+    if msg.content == "Ping":
+        await msg.channel.send("Pong!")
 
 @bot.command(name="hey")
 async def hey(ctx, *, args):
