@@ -20,11 +20,11 @@ async def on_message(msg):
 
     if msg.content.lower == "no one calls esteban julio ricardo montoya de la rosa ramírez a thief!":
         await msg.channel.send("NO ONE'S GOT THE TIME")
-        
+
     await bot.process_commands(msg)
 
 @bot.command(name="hey")
-async def hey(ctx, name = None):
+async def hey(ctx, *, name = None):
     if name:
         if name.lower() == "esteban julio ricardo montoya de la rosa ramírez":
             await ctx.send("Hey theif")
