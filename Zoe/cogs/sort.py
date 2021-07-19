@@ -21,4 +21,3 @@ class Sort(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Sort(bot))
-    print("cog loaded")

@@ -8,7 +8,6 @@ class Greetings(commands.Cog):
 
     @commands.command()
     async def hey(self, ctx, *, name=None):
-        print("hey command called")
         if name:
             if name.lower() == "esteban julio ricardo montoya de la rosa ramírez":
                 await ctx.send("Hey thief")
@@ -19,4 +18,3 @@ class Greetings(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Greetings(bot))
-    print("cog loaded")
