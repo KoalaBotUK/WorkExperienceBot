@@ -26,3 +26,9 @@ def random_cog(bot: commands.Bot):
 async def test_with_param():
     await dpytest.message("!random 0")
     assert dpytest.verify().message().content("0")
+
+@pytest.mark.asyncio
+async def test_without_param():
+    await dpytest.message("!random")
+    msg = dpytest.sent_queue.peek()
+    assert int(msg.content) < 100

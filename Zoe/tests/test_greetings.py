@@ -27,7 +27,6 @@ async def test_with_name():
     await dpytest.message("!hey john")
     assert dpytest.verify().message().content("Hey john :)")
 
-# :(
 @pytest.mark.asyncio
 async def test_without_name():
     await dpytest.message("!hey")
