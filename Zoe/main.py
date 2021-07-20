@@ -11,6 +11,7 @@ async def on_ready():
     print(f"Bot user {bot.user} is ready.")
     bot.load_extension("cogs.greetings")
     bot.load_extension("cogs.sort")
+    bot.load_extension("cogs.random")
 
 
 @bot.event
