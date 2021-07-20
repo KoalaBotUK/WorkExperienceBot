@@ -11,7 +11,7 @@ class Random(commands.Cog):
     @commands.command()
     async def random(self, ctx, number=None):
         if number:
-            await ctx.send(random.randint(0, number))
+            await ctx.send(random.randint(0, int(number)))
         else:
             await ctx.send(random.randint(0, 100))
 

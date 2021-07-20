@@ -4,7 +4,7 @@ import discord
 import discord.ext.test as dpytest
 import discord.ext.commands as commands
 
-from cogs import greetings
+from cogs import sort
 
 @pytest.fixture(autouse=True)
 async def bot(event_loop):
@@ -16,19 +16,15 @@ async def bot(event_loop):
     return b
 
 @pytest.fixture(autouse=True)
-def greetings_cog(bot: commands.Bot):
-    greetings_cog = greetings.Greetings(bot)
-    bot.add_cog(greetings_cog)
+def sort_cog(bot: commands.Bot):
+    sort_cog = sort.Sort(bot)
+    bot.add_cog(sort_cog)
     dpytest.configure(bot)
-    return greetings_cog
+    return sort_cog
 
 @pytest.mark.asyncio
-async def test_with_name():
-    await dpytest.message("!hey john")
-    assert dpytest.verify().message().content("Hey john :)")
-
-# :(
-@pytest.mark.asyncio
-async def test_without_name():
-    await dpytest.message("!hey")
-    assert dpytest.verify().message().content("Hey TestUser0 :)")
+async def test_sort():
+    await dpytest.message("!sort house dog")
+    msg = dpytest.sent_queue.peek()
+    print(msg.content)
+    assert dpytest.verify().message().content("2 arguments: dog house"), msg.content
