@@ -22,5 +22,5 @@ client.load_extension("ping")
 client.load_extension("hi")
 client.load_extension("sort")
 
-
-client.run(token)
+if __name__ == "__main__":
+    client.run(token)
