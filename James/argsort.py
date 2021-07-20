@@ -4,9 +4,10 @@ from discord.ext import commands
 class SearchCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    @bot.command()
+
+    @commands.command()
     async def sort(self, cxt,*args):
-        if cxt.author == bot.user:
+        if cxt.author == self.bot.user:
             return 
         else:
             print(list(args))

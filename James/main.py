@@ -33,5 +33,5 @@ async def hi(ctx, args = ""):
 #        return                           # Don’t respond to itself
 #    if msg.content == "Ping":            # Check that the message content matches
 #        await msg.channel.send("Pong!")  # If it does, reply
-
-client.run(token)
+if __name__ == "main":
+    client.run(token)
