@@ -15,7 +15,10 @@ class Sort(commands.Cog):
 
         output = "{} arguments: ".format(len(args))
         for item in argsList:
-            output += item + " "
+            if item == argsList[0]:
+                output += item
+            else:
+                output += " " + item
 
         await ctx.send(output)
 

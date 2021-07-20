@@ -26,5 +26,4 @@ def sort_cog(bot: commands.Bot):
 async def test_sort():
     await dpytest.message("!sort house dog")
     msg = dpytest.sent_queue.peek()
-    print(msg.content)
     assert dpytest.verify().message().content("2 arguments: dog house"), msg.content
