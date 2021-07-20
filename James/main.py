@@ -7,7 +7,7 @@ import os
 
 load_dotenv()
 
-client = commands.Bot(command_prefix='!')
+client = commands.Bot(command_prefix='!', help_command=None)
 
 token = os.environ['DISCORD_TOKEN']
 client.add_cog(SearchCog(client))
@@ -33,5 +33,5 @@ async def hi(ctx, args = ""):
 #        return                           # Don’t respond to itself
 #    if msg.content == "Ping":            # Check that the message content matches
 #        await msg.channel.send("Pong!")  # If it does, reply
-if __name__ == "main":
+if __name__ == "__main__":
     client.run(token)

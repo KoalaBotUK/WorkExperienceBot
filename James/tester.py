@@ -11,14 +11,14 @@ async def initalBot(event_loop):
     intents = discord.Intents.default()
     intents.members = True
     intents.guilds = True
-    bot = commands.Bot("!", intents)
+    tBot = commands.Bot("!", intents)
     for com in main.client.commands:
-        if com.name != "help":
-            bot.add_command(com)
+        if com.name != "help_command" and com.name != "help":
+            tBot.add_command(com)
     await dpytest.empty_queue()
-    dpytest.configure(bot)
+    dpytest.configure(tBot)
     print("Starting bot tests")
-    return bot
+    return tBot
 
 
 @pytest.mark.asyncio
