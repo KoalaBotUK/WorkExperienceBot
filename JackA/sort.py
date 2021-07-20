@@ -8,8 +8,7 @@ class Sort(commands.Cog):
 
     @commands.command()
     async def sort(self, ctx, *args):
-        await ctx.send(str(len(args)) + " argument(s)")
-        await ctx.send("Sorted arguments: " + ", ".join(sorted(args)))
+        await ctx.send(str(len(args)) + " argument(s)" + "\n" + "Sorted arguments: " + ", ".join(sorted(args)))
 
 
 def setup(bot):

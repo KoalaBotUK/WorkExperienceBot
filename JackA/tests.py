@@ -8,6 +8,7 @@ from discord.ext import commands
 import main
 import ping
 import hi
+import sort
 
 intents = discord.Intents.default()
 intents.members = True
@@ -24,6 +25,22 @@ def ping_cog(bot: commands.Bot):
 
 
 @pytest.fixture(autouse=True)
+def hi_cog(bot: commands.Bot):
+    hi_cog = hi.Hi(bot)
+    bot.add_cog(hi_cog)
+    dpytest.configure(bot)
+    return hi_cog
+
+
+@pytest.fixture(autouse=True)
+def sort_cog(bot: commands.Bot):
+    sort_cog = sort.Sort(bot)
+    bot.add_cog(sort_cog)
+    dpytest.configure(bot)
+    return sort_cog
+
+
+@pytest.fixture(autouse=True)
 def bot(event_loop):
     bot = commands.Bot("!", loop=event_loop, intents=intents)
     dpytest.configure(bot)
@@ -33,9 +50,22 @@ def bot(event_loop):
 
 @pytest.mark.asyncio
 async def test_ping_returns_pong(bot):
-    # send !ping and make sure the bot sends Pong!
-    print("test")
     await dpytest.message("!ping")
     assert dpytest.verify().message().contains().content("Pong!")
 
 
+@pytest.mark.asyncio
+async def test_hi_name_correct_return(bot):
+    await dpytest.message("!hi Jack")
+    assert dpytest.verify().message().contains().content("hello Jack!")
+
+
+# @pytest.mark.asyncio
+# async def test_hi_without_name_correct_return(bot):
+#     await dpytest.message("!hi")
+#     assert dpytest.verify().message().contains().content("hello KoalaJackA!")
+
+@pytest.mark.asyncio
+async def test_sort(bot):
+    await dpytest.message("!sort e d a c b")
+    assert dpytest.verify().message().contains().content("5 argument(s)" + "\n" + "Sorted arguments: a, b, c, d, e")
