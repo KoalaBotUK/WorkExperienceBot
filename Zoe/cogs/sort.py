@@ -13,12 +13,15 @@ class Sort(commands.Cog):
             argsList.append(item)
         argsList.sort()
 
-        output = "{} arguments: ".format(len(args))
-        for item in argsList:
-            if item == argsList[0]:
-                output += item
-            else:
-                output += " " + item
+        if argsList:
+            output = "{} arguments: ".format(len(args))
+            for item in argsList:
+                if item == argsList[0]:
+                    output += item
+                else:
+                    output += " " + item
+        else:
+            output = "No arguments found."
 
         await ctx.send(output)
 

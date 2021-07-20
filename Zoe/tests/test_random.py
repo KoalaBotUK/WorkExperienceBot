@@ -13,6 +13,7 @@ async def bot(event_loop):
     intents.messages = True
     b = commands.Bot("!", loop=event_loop, intents=intents)
     dpytest.configure(b)
+    await dpytest.empty_queue()
     return b
 
 @pytest.fixture(autouse=True)
@@ -31,4 +32,4 @@ async def test_with_param():
 async def test_without_param():
     await dpytest.message("!random")
     msg = dpytest.sent_queue.peek()
-    assert int(msg.content) < 100
+    assert int(msg.content) <= 100

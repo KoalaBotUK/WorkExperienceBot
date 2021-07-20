@@ -13,6 +13,7 @@ async def bot(event_loop):
     intents.messages = True
     b = commands.Bot("!", loop=event_loop, intents=intents)
     dpytest.configure(b)
+    await dpytest.empty_queue()
     return b
 
 @pytest.fixture(autouse=True)
@@ -27,3 +28,8 @@ async def test_sort():
     await dpytest.message("!sort house dog")
     msg = dpytest.sent_queue.peek()
     assert dpytest.verify().message().content("2 arguments: dog house"), msg.content
+
+@pytest.mark.asyncio
+async def test_sort_no_params():
+    await dpytest.message("!sort")
+    assert dpytest.verify().message().content("No arguments found.")
