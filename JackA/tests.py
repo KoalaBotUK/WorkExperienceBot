@@ -36,6 +36,6 @@ async def test_ping_returns_pong(bot):
     # send !ping and make sure the bot sends Pong!
     print("test")
     await dpytest.message("!ping")
-    assert dpytest.verify().message().contains().content("Ping!")
+    assert dpytest.verify().message().contains().content("Pong!")
 
 
