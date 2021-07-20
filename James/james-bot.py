@@ -1,4 +1,6 @@
+from inspect import classify_class_attrs
 import discord
+from argsort import SearchCog
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
@@ -8,7 +10,8 @@ load_dotenv()
 client = commands.Bot(command_prefix='!')
 
 token = os.environ['DISCORD_TOKEN']
-
+client.add_cog(SearchCog(client))
+search = client.get_cog("SearchCog")
 @client.event
 async def on_ready():
     print("Bot user" +client.user.name+" is ready.")
@@ -23,16 +26,6 @@ async def hi(ctx, args = ""):
 
         else:
             await ctx.channel.send("Hello "+ args +"!")
-
-@client.command()
-async def sort(cxt,*args):
-        if cxt.author == client.user:
-            return 
-        else:
-            print(list(args))
-            argList = list(args)
-            sortedArgs = argList.sort()
-            await cxt.send('{} arguments: {}'.format(len(argList), ', '.join(argList)))
 
 #@client.event
 #async def on_message(msg):
