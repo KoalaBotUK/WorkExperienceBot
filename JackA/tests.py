@@ -4,6 +4,7 @@ import discord
 import discord.ext.test as dpytest
 import pytest
 from discord.ext import commands
+from discord.ext.commands import MissingRequiredArgument
 
 import main
 import ping
@@ -60,12 +61,14 @@ async def test_hi_name_correct_return(bot):
     assert dpytest.verify().message().contains().content("hello Jack!")
 
 
-# @pytest.mark.asyncio
-# async def test_hi_without_name_correct_return(bot):
-#     await dpytest.message("!hi")
-#     assert dpytest.verify().message().contains().content("hello KoalaJackA!")
+@pytest.mark.asyncio
+async def test_hey_correct_return(bot):
+    await dpytest.message("!hey")
+    assert dpytest.verify().message().contains().content("hello TestUser0_0_nick!")
+
 
 @pytest.mark.asyncio
 async def test_sort(bot):
     await dpytest.message("!sort e d a c b")
     assert dpytest.verify().message().contains().content("5 argument(s)" + "\n" + "Sorted arguments: a, b, c, d, e")
+

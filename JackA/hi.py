@@ -10,10 +10,10 @@ class Hi(commands.Cog):
     async def hi(self, ctx, arg):
         await ctx.channel.send("hello " + arg + "!")
 
-    @hi.error
-    async def hi_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("hello " + ctx.author.display_name + "!")
+    @commands.command()
+    async def hey(self, ctx):
+        print("hello " + ctx.author.display_name + "!")
+        await ctx.send("hello " + ctx.author.display_name + "!")
 
 
 def setup(bot):
