@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class SearchCog(commands.Cog):
+class ReactCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

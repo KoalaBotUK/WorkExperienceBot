@@ -7,11 +7,12 @@ import os
 
 load_dotenv()
 
-client = commands.Bot(command_prefix='!', help_command=None)
+client = commands.Bot(command_prefix='!')
 
 token = os.environ['DISCORD_TOKEN']
 client.add_cog(SearchCog(client))
 search = client.get_cog("SearchCog")
+
 @client.event
 async def on_ready():
     print("Bot user" +client.user.name+" is ready.")
