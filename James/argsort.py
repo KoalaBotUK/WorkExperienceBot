@@ -10,7 +10,8 @@ class SearchCog(commands.Cog):
         if cxt.author == self.bot.user:
             return 
         else:
-            print(list(args))
             argList = list(args)
             argList.sort()
+            print(('{} arguments: {}'.format(len(argList), ', '.join(argList))))
+
             await cxt.send('{} arguments: {}'.format(len(argList), ', '.join(argList)))
