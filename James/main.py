@@ -1,6 +1,7 @@
 from inspect import classify_class_attrs
 import discord
 from argsort import SearchCog
+from inventory import InventoryCog
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
@@ -11,7 +12,10 @@ client = commands.Bot(command_prefix='!')
 
 token = os.environ['DISCORD_TOKEN']
 client.add_cog(SearchCog(client))
+client.add_cog(InventoryCog(client))
+
 search = client.get_cog("SearchCog")
+inventory = client.get_cog("InventoryCog")
 
 @client.event
 async def on_ready():
