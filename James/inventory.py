@@ -6,8 +6,8 @@ import datetime
 
 # for reference :)
 # import datetime
-# f"{datetime.datetime.now():%d-%m-%Y}"
-# outputs date in dd-mm-YYYY
+# datetime.datetime.now().strftime("%d-%m-%Y")
+# outputs date in dd-mm-YYYY, a string
 
 
 class InventoryCog(commands.Cog):
@@ -27,10 +27,10 @@ class InventoryCog(commands.Cog):
                         );
                         
                         CREATE TABLE Checkout (
-                            CheckoutID varchar(255),
+                            CheckoutID integer AUTO_INCREMENT,
                             User varchar(255),
                             TakenAmount integer,
-                            TakenDate datetime,
+                            TakenDate varchar(10),
                             ItemID integer,
                             PRIMARY KEY (CheckoutID),
                             FOREIGN KEY (ItemID)
@@ -50,8 +50,23 @@ class InventoryCog(commands.Cog):
                                 ("Mousemat", "Flat thing to put mouse on", 4);''')
 
         # Inserting values into CHECKOUT
-        cur.executescript('''INSERT INTO Checkout (CheckoutID, User, TakenAmount, TakenDate) VALUES
-                                ("C1", )''')
+        cur.executescript('''INSERT INTO Checkout (CheckoutID, User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("1", "A", 2, "14-07-21", 1);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("B", 8, "14-07-21", 1);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("B", 2, "13-07-21", 2);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("D", 1, "14-07-21", 2);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("A", 3, "14-07-21", 3);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("C", 6, "13-07-21", 4);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("A", 1, "14-07-21", 4);
+                            INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
+                                ("D", 4, "14-07-21", 5);
+                        ''')
     
 
     #Checkout item (almost completed)
@@ -64,14 +79,17 @@ class InventoryCog(commands.Cog):
         if cxt.author == self.bot.user:
             return 
         else:
-            amount = args[1]
             itemId = args[0]
+            amount = args[1]
             #Find the total checked out for the item
-            checkedOut = self.cur.execute('SELECT Sum(TakenAmount) FROM Checkout WHERE (?)', (itemId))
+            #checkedOut = self.cur.execute('SELECT Sum(TakenAmount) FROM Checkout WHERE ItemID = (?)', (itemId))
             #Should check to see if the item exists
-            total = self.cur.execute('SELECT Amount FROM Items WHERE (?)', (itemId))
-            if(checkedOut + amount < total):
-                checkedOut = self.cur.execute('INSERT INTO Checkout (?,?,?,?,?)', (checkID, cxt.author, amount, date, itemId)) # 1st and 4th should be autocreated
+            total = self.cur.execute('SELECT Amount FROM Items WHERE ItemID = (?)', (itemId))
+            if(amount <= total):
+                checkedOut = self.cur.execute('''INSERT INTO Checkout (User, TakenAmount,ItemID)
+                (?,?,?)
+                ''', (cxt.message.author.id, amount, itemId))
+                checkedOut = self.cur.execute('''INSERT INTO Checkout (User, TakenAmount,ItemID)(?,?,?)''', (cxt.message.author.id, amount, itemId))
                 await cxt.send("User "+ cxt.author + " successfully checked out " + amount + " of item " + itemId)
             else:
                 await cxt.send("The guild doesn't currently have that item availible")
@@ -83,10 +101,10 @@ class InventoryCog(commands.Cog):
         if cxt.author == self.bot.user:
             return 
         else:
-            if(userCheckedOutItem):
-                await cxt.send("")
-            else:
-                await cxt.send("")
+            itemId = args[0]
+            amounts = args[1]
+            
+            takenAmount = self.cur.execute('SELECT TakenAmount FROM Checkout WHERE User = (?)', (cxt.message.author.id))
 
 
 
@@ -120,6 +138,6 @@ class InventoryCog(commands.Cog):
             return 
         else:
             searchString - args[0]
-            result = self.cur.execute('SELECT * FROM Items WHERE (?)', (searchString))
+            result = self.cur.execute('SELECT * FROM Items WHERE ItemName = (?)', (searchString))
             await cxt.send("")
 
