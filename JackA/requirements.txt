@@ -4,3 +4,4 @@ pytest~=6.2.4
 dpytest
 discord~=1.7.3
 tests~=0.7
+requests
