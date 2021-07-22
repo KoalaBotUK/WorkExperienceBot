@@ -1,0 +1,7 @@
+discord.py==1.7.3
+python-dotenv~=0.18.0
+pytest~=6.2.4
+dpytest
+discord~=1.7.3
+tests~=0.7
+requests
