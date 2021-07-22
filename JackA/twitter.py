@@ -16,16 +16,11 @@ class Twitter(commands.Cog):
         return r
 
     @commands.command()
-    async def request_tweets(self, ctx, arg):
-        #tweet_fields = "tweet.fields=lang,author_id"
-        #ids = "ids=1278747501642657792,1255542774432063488"
-        #url = "https://api.twitter.com/2/tweets?{}&{}".format(ids, tweet_fields)
-        #tweets = requests.get(url, auth=self.bearer_oauth)
-
+    async def latest_tweet(self, ctx, arg):
         query_params = {'query': '(from:'+arg+' -is:retweet)', 'tweet.fields': 'author_id', 'max_results' : 10}
         url = "https://api.twitter.com/2/tweets/search/recent"
         tweets = requests.get(url, auth=self.bearer_oauth, params=query_params)
-        await ctx.channel.send(tweets.json()['data'][0]['text'])
+        await ctx.channel.send(arg + "'s latest tweet: \n" + tweets.json()['data'][0]['text'])
 
     @commands.command()
     async def tweet(self, ctx, *args):
