@@ -1,5 +1,7 @@
+from inspect import trace
 import discord
 from discord.ext import commands
+import traceback
 
 class Error(commands.Cog):
     
@@ -10,6 +12,9 @@ class Error(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.BadArgument):
             await ctx.send("I only accept numbers smh")
+        else:
+            traceback.print_exception(type(error), error, error.__traceback__)
+
 
 def setup(bot):
     bot.add_cog(Error(bot))
