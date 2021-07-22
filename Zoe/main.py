@@ -12,6 +12,7 @@ async def on_ready():
     bot.load_extension("cogs.greetings")
     bot.load_extension("cogs.sort")
     bot.load_extension("cogs.random")
+    bot.load_extension("cogs.twitter")
 
 
 @bot.event
@@ -29,6 +30,13 @@ async def on_message(msg):
         await msg.channel.send("NO ONE'S GOT THE TIME")
 
     await bot.process_commands(msg)
+
+
+#command errors
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Missing argument.")
 
 
 load_dotenv()
