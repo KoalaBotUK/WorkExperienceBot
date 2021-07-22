@@ -20,7 +20,10 @@ class Twitter(commands.Cog):
         query_params = {'query': '(from:'+arg+' -is:retweet)', 'tweet.fields': 'author_id', 'max_results' : 10}
         url = "https://api.twitter.com/2/tweets/search/recent"
         tweets = requests.get(url, auth=self.bearer_oauth, params=query_params)
-        await ctx.channel.send(arg + "'s latest tweet: \n" + tweets.json()['data'][0]['text'])
+        if tweets.json() == {'meta': {'result_count': 0}}:
+            await ctx.channel.send("No tweets for user @" + arg)
+        else:
+            await ctx.channel.send(arg + "'s latest tweet: \n" + tweets.json()['data'][0]['text'])
 
     @commands.command()
     async def tweet(self, ctx, *args):
