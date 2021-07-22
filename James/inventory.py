@@ -42,7 +42,7 @@ class InventoryCog(commands.Cog):
 
         # Inserting values into ITEMS
         print("inserting items")
-        self.cur.executescript('''INSERT INTO Items ( ItemName, ItemDesc, Amount) VALUES
+        self.cur.executescript('''INSERT INTO Items (ItemName, ItemDesc, Amount) VALUES
                                 ( "Headphones", "Pair of headphones", 10);
                             INSERT INTO Items (ItemName, ItemDesc, Amount) VALUES
                                 ("Mice", "Mice not sure what you expect", 5);
@@ -58,7 +58,7 @@ class InventoryCog(commands.Cog):
 
         # Inserting values into CHECKOUT
         print("inserting checkouts")
-        self.cur.executescript('''INSERT INTO Checkout ( User, TakenAmount, TakenDate, ItemID) VALUES
+        self.cur.executescript('''INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
                                 ( "A", 2, "14-07-21", 1);
                             INSERT INTO Checkout (User, TakenAmount, TakenDate, ItemID) VALUES
                                 ("B", 8, "14-07-21", 1);
@@ -104,14 +104,14 @@ class InventoryCog(commands.Cog):
             elif (amount <= total):
                 checkedOut = self.cur.execute('''INSERT INTO Checkout (User, TakenAmount,ItemID)
                 (?,?,?)
-                ''', (cxt.message.author.id, amount, itemId))
+                ''', (cxt.message.author.id, amount, str(itemId)))
                 updateAmount = self.cur.execute('''UPDATE Items 
                 SET Amount = (?)
-                WHERE ItemID = (?)''', (total - amount, itemId))
+                WHERE ItemID = (?)''', (total - amount, str(itemId)))
 
                 self.con.commit()
                 
-                await cxt.send("User "+ cxt.author + " successfully checked out " + amount + " of item " + itemId)
+                await cxt.send("User "+ cxt.author + " successfully checked out " + amount + " of item " + str(itemId))
 
             elif (0 > amount):
                 await cxt.send("You're trying to checkout negative items?!")
@@ -131,7 +131,7 @@ class InventoryCog(commands.Cog):
             amount = int(args[1])
             
             # Gets the CheckoutID and amount that was checked out
-            checkoutId = self.cur.execute('SELECT CheckoutID FROM Checkout WHERE User = (?) AND ItemID = (?)', (cxt.message.author.id, itemId))
+            checkoutId = self.cur.execute('SELECT CheckoutID FROM Checkout WHERE User = (?) AND ItemID = (?)', (cxt.message.author.id, str(itemId)))
             takenAmount = self.cur.execute('SELECT TakenAmount FROM Checkout WHERE User = (?)', (cxt.message.author.id))
 
             if (amount == 0):
@@ -141,10 +141,12 @@ class InventoryCog(commands.Cog):
             else:
                 if (takenAmount == amount):
                     self.cur.execute('DELETE FROM Checkout WHERE CheckoutID = (?)', (checkoutId))
+                    self.con.commit()
                     await cxt.send("All items returned. Checkout entry {0} deleted from table.".format(checkoutId))
 
                 elif (0 < takenAmount < amount):
                     self.cur.execute('UPDATE Checkout SET TakenAmount = (?) WHERE CheckoutID = (?)', (takenAmount - amount), (checkoutId))
+                    self.con.commit()
                     await cxt.send("Some items returned. Checkout entry {0} updated.".format(checkoutId))
                 
                 # if user is returning a negative value 
